@@ -1,0 +1,21 @@
+Install mkcert from here:
+
+https://github.com/FiloSottile/mkcert/releases
+
+or use the provided one in the "cert" folder.
+
+If you chose to download a new binary, rename it to just "mkcert.exe" for simplicity. Add mkcert.exe to your PATH env variable.
+
+Then run:
+
+mkcert -install
+
+Accept the prompt to install the local CA.
+
+Navigate to the config folder of the server project, then run:
+
+mkcert localhost 127.0.0.1 ::1
+
+This will create the key and certificate you need. Make sure the server.ts file is pointing to the correct key and certificate file names.
+
+You can now start the server and navigate to a localhost address using HTTPS without any issues.

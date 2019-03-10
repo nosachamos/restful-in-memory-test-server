@@ -1,0 +1,50 @@
+{
+  "name": "RESTful API test server",
+  "version": "1.0.0",
+  "author": "Eduardo Born",
+  "license": "MIT",
+  "description": "An in-memory API built with NodeJS, Express and TypeScript to facilitate creating frontend integration tests.",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "build-watch": "tsc -w",
+    "dev": "nodemon -x node --inspect=5500 -r ts-node/register ./lib/server.ts",
+    "start": "concurrently --kill-others \"tsc -w\" \"nodemon --inspect=5500  ./lib/server.ts\"",
+    "prod": "npm run build && npm run start",
+    "pretty-quick": "pretty-quick",
+    "prettier-all": "prettier --write '**/*.*(js|ts)'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "keywords": [
+    "RESTful",
+    "API",
+    "Test",
+    "Server",
+    "NodeJs",
+    "Node",
+    "TypeScript",
+    "Express"
+  ],
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "guid-typescript": "^1.0.9",
+    "helmet": "^3.16.0",
+    "mongoose": "^5.4.7",
+    "nodemon": "^1.18.9"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "husky": "^1.3.1",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0"
+  }
+}
