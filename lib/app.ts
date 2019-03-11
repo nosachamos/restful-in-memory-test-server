@@ -24,7 +24,7 @@ class App {
 
     // failing requests if we are configured to do that
     this.app.use((req, res, next) => {
-      if (Controller.requestsShouldFail && !req.url.startsWith('/commands')) {
+      if (Controller.requestsShouldFail && !req.url.startsWith('/settings')) {
         res.status(500).send({ error: 'An error has occurred' });
 
       } else {

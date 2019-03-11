@@ -72,34 +72,38 @@ This will create the key and certificate you need.
 Done! You can now start the server and navigate to a localhost address using HTTPS without any issues.
 
 
-## Commands
+## Settings
 
 ### Simulating failures
 
 To set whether the server should respond with failures, submit a GET request to the following URL:
 
-https://localhost:5000/commands/requestsShouldFail/true
+`GET https://localhost:5000/settings/requestsShouldFail/true`
 
 To disable failures, submit a GET request to:
 
-https://localhost:5000/commands/requestsShouldFail/false
+`GET https://localhost:5000/settings/requestsShouldFail/false`
 
 ### Simulating server delay
 
 You can simulate a slow server response by submitting a GET request to the following URL:
 
-https://localhost:5000/commands/setDelay/:delay
+`https://localhost:5000/settings/setDelay/:delay`
 
 For example, to simulate a 2 seconds delay on all requests, use:
 
-https://localhost:5000/commands/setDelay/2000
+`https://localhost:5000/settings/setDelay/2000`
 
 To disable the artificial delay, set the delay to zero:
 
-https://localhost:5000/commands/setDelay/0
+`https://localhost:5000/settings/setDelay/0`
 
 
 ## License
 
 MIT
+
+--------------
+
+Made with ❤ and coffee
 

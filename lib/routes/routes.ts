@@ -14,10 +14,10 @@ export class Routes {
 
     // commands
     app
-      .route('/commands/setDelay/:howLong')
+      .route('/settings/setDelay/:howLong')
       .get(this.contactController.setDelay);
     app
-      .route('/commands/requestsShouldFail/:shouldFail')
+      .route('/settings/requestsShouldFail/:shouldFail')
       .get(this.contactController.requestsShouldFail);
 
     app
