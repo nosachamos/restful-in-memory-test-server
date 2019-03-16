@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { getDbData } from '../db/db-data';
+import { InMemoryDb } from '../db/db-data';
 import { Guid } from 'guid-typescript';
 
-const db = getDbData();
+let db = {};
+let originalDb: InMemoryDb;
 
 export class Controller {
-
   static idPropertyName = 'id';
   static requestDelay = 0;
   static requestsShouldFail = false;
@@ -40,6 +40,20 @@ export class Controller {
 
     res.status(204);
     return;
+  }
+
+  public setDb(req: Request, res: Response) {
+    const payload = req.body;
+
+    db = payload;
+    originalDb = db;
+
+    res.status(204);
+  }
+
+  public resetDb(req: Request, res: Response) {
+    db = originalDb;
+    res.status(204);
   }
 
   public requestsShouldFail(req: Request, res: Response) {

@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { Controller } from '../controllers/controller';
 import * as express from 'express';
+import { Request, Response } from 'express';
+import { Controller } from '../controllers/controller';
 
 export class Routes {
   public contactController: Controller = new Controller();
@@ -19,6 +19,13 @@ export class Routes {
     app
       .route('/settings/requestsShouldFail/:shouldFail')
       .get(this.contactController.requestsShouldFail);
+    app
+      .route('/settings/db')
+      .get(this.contactController.setDb);
+    app
+      .route('/settings/db/reset')
+      .get(this.contactController.resetDb);
+
 
     app
       .route('/:collectionName')

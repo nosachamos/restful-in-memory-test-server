@@ -4,10 +4,6 @@ export interface InMemoryDb {
   [collectionName: string]: any[];
 }
 
-export class Db {
-  static data = getDbData();
-}
-
 export function getDbData() {
 
   const heroes: any[] = [

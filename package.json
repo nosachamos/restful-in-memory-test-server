@@ -1,5 +1,5 @@
 {
-  "name": "RESTful API test server",
+  "name": "restful-in-memory-test-server",
   "version": "1.0.0",
   "author": "Eduardo Born",
   "license": "MIT",
