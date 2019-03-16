@@ -74,6 +74,97 @@ Done! You can now start the server and navigate to a localhost address using HTT
 
 ## Settings
 
+### Initial data
+
+In order to have useful test endpoints it is often useful to prime the server with an initial set of mock data, and then allow that data to be manipulated as the tests run. This initial data set also defines which collections will be available as endpoints. After it has been set the server will only be able to manipulate those collections, which means requests to other collections will result in `404 - Not Found` responses.
+
+To do that, send your initial data set to:
+
+`POST https://localhost:5000/settings/db`
+
+
+#### Example
+
+For example, suppose we want to test a Todo app which manages Todos and Todo Lists. In this app, you can have todos that belong to a todo list, as well as standalone Todos that are not linked to any Todo List. To have this structure setup, you would send this data to the server:
+
+```
+{
+  "todos": [
+    {
+      "id": 1,
+      "name": "Call Johnny",
+      "description": "Need to bound a couple of ideas."
+    },
+    {
+      "id": 2,
+      "name": "Send package",
+      "description": "Must have return package sent today on USPS."
+    }
+  ],
+  "todoLists": [
+    {
+      "id": 3,
+      "name": "Software tasks",
+      "todos": [
+        {
+          "id": 4,
+          "name": "Implement feature",
+          "description": "Write some nice codez and create PR."
+        },
+        {
+          "id": 5,
+          "name": "Prepare slides for conference",
+          "description": "Write the slides and have them reviewed."
+        }
+      ]
+    }
+  ]
+}
+```
+
+Once the server has received this data, the following endpoints are available to you:
+
+*Manage the standalone Todos:*
+
+- `GET https://localhost:5000/todos` - lists the Todos.
+- `POST https://localhost:5000/todos` - creates the a new Todo.
+- `DELETE https://localhost:5000/todos` - delete all Todos.
+- `GET https://localhost:5000/todos/:todoId` - gets the given Todo.
+- `PUT https://localhost:5000/todos/:todoId` - updates the given Todo.
+- `DELETE https://localhost:5000/todos/:todoId` - deletes the given Todo.
+
+*Manage the Todo Lists:*
+
+- `GET https://localhost:5000/todoLists` - lists the Todos Lists.
+- `POST https://localhost:5000/todoLists` - creates the a new Todo List.
+- `DELETE https://localhost:5000/todoLists` - delete all Todos Lists.
+- `GET https://localhost:5000/todoLists/:todoListId` - gets the given Todo List.
+- `PUT https://localhost:5000/todoLists/:todoListId` - updates the given Todo List.
+- `DELETE https://localhost:5000/todoLists/:todoListId` - deletes the given Todo List.
+
+*Manage the Todos that belong to a given Todo List:*
+
+- `GET https://localhost:5000/todoLists/:todoListId/todos` - gets the Todos for a given Todo List.
+- `POST https://localhost:5000/todoLists/:todoListId/todos` - create all the Todos for a given Todo List.
+- `DELETE https://localhost:5000/todoLists/:todoListId/todos` - deletes all the Todos for a given Todo List.
+- `GET https://localhost:5000/todoLists/:todoListId/todos/:todoId` - gets a Todo that belongs to a given Todo List.
+- `PUT https://localhost:5000/todoLists/:todoListId/todos/:todoId` - updates a Todo that belongs to a given Todo List.
+- `DELETE https://localhost:5000/todoLists/:todoListId/todos/:todoId` - deletes a Todo that belongs to a given Todo List.
+
+Note that if you use globally unique ids for your objects, then you don't need to use the nested resource endpoints to manage Todos that belong to a given Todo List. In that case using the standalone endpoints will work just as well.
+
+
+### Reset state
+
+Once you have made requests to the endpoints, data bing served is likely to no longer match the data you set as the server's initial state. It is, however, desirable to keep tests isolated and without any dependencies, which means you usually want all tests to rely on the same data set (and not the data set as it is after being modified by other tests). 
+
+To avoid having to send the initial data back to the server, you can simply call:
+
+`GET https://localhost:5000/settings/db/reset`
+
+This will reset the server's data back to the initial state you have set previously.
+
+
 ### Simulating failures
 
 To set whether the server should respond with failures, submit a GET request to the following URL:
