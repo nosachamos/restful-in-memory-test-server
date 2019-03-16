@@ -154,6 +154,15 @@ Once the server has received this data, the following endpoints are available to
 Note that if you use globally unique ids for your objects, then you don't need to use the nested resource endpoints to manage Todos that belong to a given Todo List. In that case using the standalone endpoints will work just as well.
 
 
+### Reset state
+
+Once you have made requests to the endpoints, data bing served is likely to no longer match the data you set as the server's initial state. It is, however, desirable to keep tests isolated and without any dependencies, which means you usually want all tests to rely on the same data set (and not the data set as it is after being modified by other tests). 
+
+To avoid having to send the initial data back to the server, you can simply call:
+
+`GET https://localhost:5000/settings/db/reset`
+
+This will reset the server's data back to the initial state you have set previously.
 
 
 ### Simulating failures
