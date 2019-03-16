@@ -179,15 +179,15 @@ To disable failures, submit a GET request to:
 
 You can simulate a slow server response by submitting a GET request to the following URL:
 
-`https://localhost:5000/settings/setDelay/:delay`
+`GET https://localhost:5000/settings/setDelay/:delay`
 
 For example, to simulate a 2 seconds delay on all requests, use:
 
-`https://localhost:5000/settings/setDelay/2000`
+`GET https://localhost:5000/settings/setDelay/2000`
 
 To disable the artificial delay, set the delay to zero:
 
-`https://localhost:5000/settings/setDelay/0`
+`GET https://localhost:5000/settings/setDelay/0`
 
 
 ## License
